@@ -31,6 +31,7 @@ CREATE TABLE Pessoa
     cpf VARCHAR(16) NOT NULL,
     CONSTRAINT pkPessoa PRIMARY KEY (idPessoa),
     CONSTRAINT fkPessoaEndereco FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Patrocinador
@@ -67,6 +68,7 @@ CREATE TABLE DoacaoCPF
     formaPagamento VARCHAR(45) NOT NULL,
     CONSTRAINT pkDoacaoCPF PRIMARY KEY (idDoacao),
     CONSTRAINT fkDoacaoCPFPessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Adotante
@@ -79,6 +81,7 @@ CREATE TABLE Adotante
     experienciaAnterior TINYINT NOT NULL,
     CONSTRAINT pkAdotante PRIMARY KEY (idAdotante),
     CONSTRAINT fkAdotantePessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Veterinario
@@ -88,6 +91,7 @@ CREATE TABLE Veterinario
     CRMV VARCHAR(45) NOT NULL,
     CONSTRAINT pkVeterinario PRIMARY KEY (idVeterinario),
     CONSTRAINT fkVeterinarioPessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Castracao
@@ -124,7 +128,8 @@ CREATE TABLE Apadrinhamento
     tipo VARCHAR(45) NOT NULL,
     dataFim DATE,
     CONSTRAINT pkApadrinhamento PRIMARY KEY (idApadrinhamento),
-    CONSTRAINT fkApadrinhamentoPessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa),
+    CONSTRAINT fkApadrinhamentoPessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa)
+        ON DELETE CASCADE,
     CONSTRAINT fkApadrinhamentoAnimal FOREIGN KEY (idAnimal) REFERENCES Animal(idAnimal)
 );
 
@@ -140,6 +145,7 @@ CREATE TABLE Resgate
     CONSTRAINT fkResgateEndereco FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco),
     CONSTRAINT fkResgateAnimal FOREIGN KEY (idAnimal) REFERENCES Animal(idAnimal),
     CONSTRAINT fkResgatePessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Adocao
@@ -178,4 +184,6 @@ CREATE TABLE Usuario
     administrador TINYINT NOT NULL,
     CONSTRAINT pkUsuario PRIMARY KEY (idUsuario),
     CONSTRAINT fkUsuarioPessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa)
+        ON DELETE CASCADE
+
 );
