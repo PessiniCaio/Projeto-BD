@@ -19,6 +19,7 @@ CREATE TABLE Endereco
     complemento VARCHAR(45) NOT NULL,
     CONSTRAINT pkEndereco PRIMARY KEY (idEndereco),
     CONSTRAINT fkEnderecoCidade FOREIGN KEY (idCidade) REFERENCES Cidade(idCidade)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Pessoa
@@ -44,6 +45,7 @@ CREATE TABLE Patrocinador
     cnpj VARCHAR(45) NOT NULL,
     CONSTRAINT pkPatrocinador PRIMARY KEY (idPatrocinador),
     CONSTRAINT fkPatrocinadorEndereco FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE DoacaoCNPJ
@@ -56,6 +58,7 @@ CREATE TABLE DoacaoCNPJ
     formaPagamento VARCHAR(45) NOT NULL,
     CONSTRAINT pkDoacaoCNPJ PRIMARY KEY (idDoacao),
     CONSTRAINT fkDoacaoCNPJPatrocinador FOREIGN KEY (idPatrocinador) REFERENCES Patrocinador(idPatrocinador)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE DoacaoCPF
@@ -101,6 +104,7 @@ CREATE TABLE Castracao
     idVeterinario INTEGER NOT NULL,
     CONSTRAINT pkCastracao PRIMARY KEY (idCastracao),
     CONSTRAINT fkCastracaoVeterinario FOREIGN KEY (idVeterinario) REFERENCES Veterinario(idVeterinario)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Animal
@@ -116,6 +120,7 @@ CREATE TABLE Animal
     raca VARCHAR(45) NOT NULL,
     CONSTRAINT pkAnimal PRIMARY KEY (idAnimal),
     CONSTRAINT fkAnimalCastracao FOREIGN KEY (idCastracao) REFERENCES Castracao(idCastracao)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Apadrinhamento
@@ -131,6 +136,7 @@ CREATE TABLE Apadrinhamento
     CONSTRAINT fkApadrinhamentoPessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa)
         ON DELETE CASCADE,
     CONSTRAINT fkApadrinhamentoAnimal FOREIGN KEY (idAnimal) REFERENCES Animal(idAnimal)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Resgate
@@ -142,8 +148,10 @@ CREATE TABLE Resgate
     dataResgate DATE NOT NULL,
     descricao VARCHAR(45) NOT NULL,
     CONSTRAINT pkResgate PRIMARY KEY (idResgate),
-    CONSTRAINT fkResgateEndereco FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco),
-    CONSTRAINT fkResgateAnimal FOREIGN KEY (idAnimal) REFERENCES Animal(idAnimal),
+    CONSTRAINT fkResgateEndereco FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco)
+        ON DELETE CASCADE,
+    CONSTRAINT fkResgateAnimal FOREIGN KEY (idAnimal) REFERENCES Animal(idAnimal)
+        ON DELETE CASCADE,
     CONSTRAINT fkResgatePessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa)
         ON DELETE CASCADE
 );
@@ -156,8 +164,10 @@ CREATE TABLE Adocao
     datah DATE NOT NULL,
     statusAdocao VARCHAR(45) NOT NULL,
     CONSTRAINT pkAdocao PRIMARY KEY (idAdocao),
-    CONSTRAINT fkAdocaoAdotante FOREIGN KEY (idAdotante) REFERENCES Adotante(idAdotante),
+    CONSTRAINT fkAdocaoAdotante FOREIGN KEY (idAdotante) REFERENCES Adotante(idAdotante)
+        ON DELETE CASCADE,
     CONSTRAINT fkAdocaoAnimal FOREIGN KEY (idAnimal) REFERENCES Animal(idAnimal)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Tratamento
@@ -171,8 +181,10 @@ CREATE TABLE Tratamento
     descricao VARCHAR(45) NOT NULL,
     custo FLOAT NOT NULL,
     CONSTRAINT pkTratamento PRIMARY KEY (idTratamento),
-    CONSTRAINT fkTratamentoAnimal FOREIGN KEY (idAnimal) REFERENCES Animal(idAnimal),
+    CONSTRAINT fkTratamentoAnimal FOREIGN KEY (idAnimal) REFERENCES Animal(idAnimal)
+        ON DELETE CASCADE,
     CONSTRAINT fkTratamentoVeterinario FOREIGN KEY (idVeterinario) REFERENCES Veterinario(idVeterinario)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Usuario
@@ -186,3 +198,4 @@ CREATE TABLE Usuario
     CONSTRAINT fkUsuarioPessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa)
         ON DELETE CASCADE
 );
+
